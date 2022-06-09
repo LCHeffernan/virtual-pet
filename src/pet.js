@@ -1,5 +1,7 @@
 const maxFitness = 10;
 const minHunger = 0;
+const fitnessBreakPoint = 3;
+const hungerBreakPoint = 5;
 
 function Pet(name) {
     this.name = name;
@@ -27,4 +29,20 @@ Pet.prototype.feed = function() {
         this.hunger = minHunger;
     }
 }
+
+Pet.prototype.checkUp = function() {
+    if (this.fitness <= fitnessBreakPoint && this.hunger >= hungerBreakPoint){
+        return 'I am hungry AND I need a walk'
+    }
+    else if(this.fitness <= fitnessBreakPoint){
+        return 'I need a walk';
+    }
+    else if (this.hunger >= hungerBreakPoint){
+        return 'I am hungry';
+    }
+    else {
+        return 'I feel great!';
+    }
+}
+
 module.exports = Pet;
