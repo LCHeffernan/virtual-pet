@@ -79,7 +79,7 @@ describe('walk', () => {
     });
 });
 
-  describe('walk', () => {
+describe('walk', () => {
     it('make sure fitness does not go above max fitness', () => {
       const pet = new Pet('fido');
   
@@ -87,5 +87,27 @@ describe('walk', () => {
       pet.walk();
   
       expect(pet.fitness).toEqual(10);
+    });
+});
+
+describe('feed', () => {
+    it('decreases hunger by 3', () => {
+      const pet = new Pet('fido');
+  
+      pet.hunger = 9;
+      pet.feed();
+  
+      expect(pet.hunger).toEqual(6);
+    });
+});
+
+describe('feed', () => {
+    it('make sure hunger does not go below min hunger', () => {
+      const pet = new Pet('fido');
+  
+      pet.hunger = 1;
+      pet.feed();
+  
+      expect(pet.hunger).toEqual(0);
     });
 });
