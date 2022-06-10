@@ -13,32 +13,39 @@ describe('constructor', () => {
         expect(pet2.name).toEqual('Rex');
     });
     
-    it('has a initial age of 0', () =>{
+    it('has a initial age of 0', () => {
         const pet = new Pet('Fido');
 
         expect(pet.age).toEqual(0);
     });
 
-     it('has a initial hunger of 0', () =>{
+    it('has a initial hunger of 0', () => {
         const pet = new Pet('Fido');
 
         expect(pet.hunger).toEqual(0);
     });
 
-     it('has a initial fitness of 10', () =>{
+    it('has a initial fitness of 10', () => {
         const pet = new Pet('Fido');
 
         expect(pet.fitness).toEqual(10);
+    });
+
+    it('has children array initially with no elements', () => {
+    const pet = new Pet('Fido');
+
+    expect(pet.children.length).toEqual(0);
     });
 });
 
 describe('growUp', () => {
     it('has a method called growUp', () => {
         const pet = new Pet('Fido');
+
         expect(pet.growUp).toBeInstanceOf(Function);
     });
 
-    it('increments the age by 1', () =>{
+    it('increments the age by 1', () => {
         const pet = new Pet('Fido');
 
         pet.growUp();
@@ -46,7 +53,7 @@ describe('growUp', () => {
         expect(pet.age).toEqual(1);
     });
 
-    it('increments the hunger by 5', () =>{
+    it('increments the hunger by 5', () => {
         const pet = new Pet('Fido');
 
         pet.growUp();
@@ -54,7 +61,7 @@ describe('growUp', () => {
         expect(pet.hunger).toEqual(5);
     });
 
-    it('decreases the fitness by 3', () =>{
+    it('decreases the fitness by 3', () => {
         const pet = new Pet('Fido');
 
         pet.growUp();
@@ -74,6 +81,7 @@ describe('growUp', () => {
 describe('walk', () => {
     it('has a method called walk', () => {
         const pet = new Pet('Fido');
+
         expect(pet.walk).toBeInstanceOf(Function);
     });
 
@@ -101,12 +109,13 @@ describe('walk', () => {
         pet.age = 35;
   
         expect(() => pet.walk()).toThrow('Your pet is no longer alive :(');
-      });
+    });
 });
 
 describe('feed', () => {
     it('has a method called feed', () => {
         const pet = new Pet('Fido');
+
         expect(pet.feed).toBeInstanceOf(Function);
     });
 
@@ -142,6 +151,7 @@ describe('feed', () => {
 describe('checkUp', () => {
     it('has a method called checkUp', () => {
         const pet = new Pet('Fido');
+
         expect(pet.checkUp).toBeInstanceOf(Function);
     });
 
@@ -168,7 +178,7 @@ describe('checkUp', () => {
 
         expect(pet.checkUp()).toEqual('I am hungry AND I need a walk');
     });
-    
+
     it('returns I feel great! if fitness is more than 3 and hunger is less than 5', () => {
         const pet = new Pet('fido');
 
@@ -213,5 +223,37 @@ describe('isAlive', () => {
         pet.age = 30;
 
         expect(pet.isAlive).toEqual(false);
+    });
+});
+
+describe('haveBaby', () => {
+    it('has a method called haveBaby', () => {
+        const pet = new Pet('Fido');
+
+        expect(pet.haveBaby).toBeInstanceOf(Function);
+    });
+
+    it('check element in children is an object', () => {
+        const pet = new Pet('Fido');
+
+        pet.haveBaby('Amelia');
+  
+        expect(pet.children[0]).toBeInstanceOf(Object);
+    });
+
+    it('check baby has been added to array', () => {
+        const pet = new Pet('Fido');
+    
+        pet.haveBaby('Amelia');
+    
+        expect(pet.children.length).toEqual(1);
+      });
+    
+    it('check child name in children array', () => {
+        const pet = new Pet('Fido');
+
+        pet.haveBaby('Amelia');
+
+        expect(pet.children[0].name).toEqual('Amelia');
     });
 });
