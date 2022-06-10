@@ -256,4 +256,22 @@ describe('haveBaby', () => {
 
         expect(pet.children[0].name).toEqual('Amelia');
     });
+
+    it('check second child is added to array', () => {
+        const pet = new Pet('Fido');
+    
+        pet.haveBaby('Amelia');
+        pet.haveBaby('Benji')
+    
+        expect(pet.children.length).toEqual(2);
+    });
+
+    it('check second child name in children array', () => {
+        const pet = new Pet('Fido');
+
+        pet.haveBaby('Amelia');
+        pet.haveBaby('Benji')
+
+        expect(pet.children[1].name).toEqual('Benji');
+    });
 });
