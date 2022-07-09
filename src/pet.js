@@ -5,12 +5,18 @@ const maxHunger = 10;
 const maxAge = 30;
 const fitnessBreakPoint = 3;
 const hungerBreakPoint = 5;
+const ageIncrement = 1;
+const hungerIncrement = 5;
+const fitnessReduction = 3;
+const feedReduction = 3;
+const exerciseIncrement = 4;
+const petDeadMessage = 'Your pet is no longer alive :('
 
 function Pet(name) {
     this.name = name;
     this.age = 0;
-    this.hunger = 0;
-    this.fitness = 10;
+    this.hunger = minHunger;
+    this.fitness = maxFitness;
     this.children = [];
 }
 
@@ -22,48 +28,46 @@ Pet.prototype = {
 
 Pet.prototype.growUp = function() {
     if (!this.isAlive) {
-        throw new Error('Your pet is no longer alive :(');
+        throw new Error(petDeadMessage);
     }
-    this.age += 1;
-    this.hunger += 5;
-    this.fitness -= 3;
+    this.age += ageIncrement;
+    this.hunger += hungerIncrement;
+    this.fitness -= fitnessReduction;
 };
 
 Pet.prototype.walk = function() {
     if (!this.isAlive) {
-        throw new Error('Your pet is no longer alive :(');
+        throw new Error(petDeadMessage);
     }
-    this.fitness += 4;
-    if (this.fitness > maxFitness){
-        this.fitness = maxFitness;
-    }
+    this.fitness = Math.min(this.fitness += exerciseIncrement, maxFitness);
 }
 
 Pet.prototype.feed = function() {
     if (!this.isAlive) {
-        throw new Error('Your pet is no longer alive :(');
+        throw new Error(petDeadMessage);
     }
-    this.hunger -= 3;
-    if (this.hunger < minHunger){
-        this.hunger = minHunger;
-    }
+    this.hunger = Math.max(this.hunger -= feedReduction, minHunger)
 }
 
 Pet.prototype.checkUp = function() {
+    const hungryAndWalkMessage = 'I am hungry AND I need a walk';
+    const walkMessage = 'I need a walk';
+    const hungryMessage = 'I am hungry';
+    const allHappyMessage = 'I feel great!';
     if (!this.isAlive) {
-        throw new Error('Your pet is no longer alive :(');
+        throw new Error(petDeadMessage);
     }
     if (this.fitness <= fitnessBreakPoint && this.hunger >= hungerBreakPoint){
-        return 'I am hungry AND I need a walk'
+        return hungryAndWalkMessage;
     }
     if(this.fitness <= fitnessBreakPoint){
-        return 'I need a walk';
+        return walkMessage;
     }
     if (this.hunger >= hungerBreakPoint){
-        return 'I am hungry';
+        return hungryMessage;
     }
     else {
-        return 'I feel great!';
+        return allHappyMessage;
     }
 }
 
