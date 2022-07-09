@@ -12,7 +12,7 @@ This project has the following dependencies: JavaScript, Jest and Node. To downl
 * Clone down your fork using ```git clone```
 * Change directory into your cloned folder and run ``` npm install ```
 * You can run the program in node REPL using the command ```node```
-* To make the program available in REPL type ```const Pet = require('../src/pet');```
+* To make the program available in REPL type ```const Pet = require('./src/pet');```
 * Firstly create a pet using ```const myPetName = new Pet('myPetName');```, you can choose any name for your pet just replace myPetName with your choice of name. For example, if you wanted to call you pet rex, type ```const rex = new Pet('rex');``` (I will refer to my pet as rex throughout the instructions). At any point if you want to see your pet's stats type ```rex;```
 
 ## Using virtual pet
