@@ -10,71 +10,91 @@ const hungerIncrement = 5;
 const fitnessReduction = 3;
 const feedReduction = 3;
 const exerciseIncrement = 4;
-const petDeadMessage = 'Your pet is no longer alive :('
+const petDeadMessage = "Your pet is no longer alive :(";
+const hungryAndWalkMessage = "I am hungry AND I need a walk";
+const walkMessage = "I need a walk";
+const hungryMessage = "I am hungry";
+const allHappyMessage = "I feel great!";
 
 function Pet(name) {
-    this.name = name;
-    this.age = 0;
-    this.hunger = minHunger;
-    this.fitness = maxFitness;
-    this.children = [];
+  this.name = name;
+  this.age = 0;
+  this.hunger = minHunger;
+  this.fitness = maxFitness;
+  this.children = [];
 }
 
 Pet.prototype = {
-    get isAlive() {
-      return this.age < maxAge && this.hunger < maxHunger && this.fitness > minFitness;
-    }
-}
-
-Pet.prototype.growUp = function() {
-    if (!this.isAlive) {
-        throw new Error(petDeadMessage);
-    }
-    this.age += ageIncrement;
-    this.hunger += hungerIncrement;
-    this.fitness -= fitnessReduction;
+  get isAlive() {
+    return (
+      this.age < maxAge && this.hunger < maxHunger && this.fitness > minFitness
+    );
+  },
 };
 
-Pet.prototype.walk = function() {
-    if (!this.isAlive) {
-        throw new Error(petDeadMessage);
-    }
-    this.fitness = Math.min(this.fitness += exerciseIncrement, maxFitness);
-}
+Pet.prototype.growUp = function () {
+  if (!this.isAlive) {
+    throw new Error(petDeadMessage);
+  }
+  this.age += ageIncrement;
+  this.hunger += hungerIncrement;
+  this.fitness -= fitnessReduction;
+};
 
-Pet.prototype.feed = function() {
-    if (!this.isAlive) {
-        throw new Error(petDeadMessage);
-    }
-    this.hunger = Math.max(this.hunger -= feedReduction, minHunger)
-}
+Pet.prototype.walk = function () {
+  if (!this.isAlive) {
+    throw new Error(petDeadMessage);
+  }
+  this.fitness = Math.min((this.fitness += exerciseIncrement), maxFitness);
+};
 
-Pet.prototype.checkUp = function() {
-    const hungryAndWalkMessage = 'I am hungry AND I need a walk';
-    const walkMessage = 'I need a walk';
-    const hungryMessage = 'I am hungry';
-    const allHappyMessage = 'I feel great!';
-    if (!this.isAlive) {
-        throw new Error(petDeadMessage);
-    }
-    if (this.fitness <= fitnessBreakPoint && this.hunger >= hungerBreakPoint){
-        return hungryAndWalkMessage;
-    }
-    if(this.fitness <= fitnessBreakPoint){
-        return walkMessage;
-    }
-    if (this.hunger >= hungerBreakPoint){
-        return hungryMessage;
-    }
-    else {
-        return allHappyMessage;
-    }
-}
+Pet.prototype.feed = function () {
+  if (!this.isAlive) {
+    throw new Error(petDeadMessage);
+  }
+  this.hunger = Math.max((this.hunger -= feedReduction), minHunger);
+};
 
-Pet.prototype.haveBaby = function(babyName) {
-    const child = new Pet(babyName);
+Pet.prototype.checkUp = function () {
+  if (!this.isAlive) {
+    throw new Error(petDeadMessage);
+  }
+  if (this.fitness <= fitnessBreakPoint && this.hunger >= hungerBreakPoint) {
+    return hungryAndWalkMessage;
+  }
+  if (this.fitness <= fitnessBreakPoint) {
+    return walkMessage;
+  }
+  if (this.hunger >= hungerBreakPoint) {
+    return hungryMessage;
+  } else {
+    return allHappyMessage;
+  }
+};
 
-    this.children.push(child);
-}
+Pet.prototype.haveBaby = function (babyName) {
+  const child = new Pet(babyName);
 
-module.exports = Pet;
+  this.children.push(child);
+};
+
+module.exports = {
+  minFitness,
+  maxFitness,
+  minHunger,
+  maxHunger,
+  maxAge,
+  fitnessBreakPoint,
+  hungerBreakPoint,
+  ageIncrement,
+  hungerIncrement,
+  fitnessReduction,
+  feedReduction,
+  exerciseIncrement,
+  petDeadMessage,
+  hungryAndWalkMessage,
+  walkMessage,
+  hungryMessage,
+  allHappyMessage,
+  Pet,
+};
